@@ -87,9 +87,64 @@
         .animate-delay-300 {
             animation-delay: 0.3s;
         }
-        .moon{
-            color: black;
-        }
+         /* New animations */
+    @keyframes gradientPulse {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes slideInFromRight {
+        0% { transform: translateX(50px); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes cardGlow {
+        0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(99, 102, 241, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+    }
+    
+    /* Hero section specific animations */
+    .hero-gradient-text {
+        background: linear-gradient(90deg, #0ea5e9 0%, #6366f1 50%, #0ea5e9 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: gradientPulse 6s ease infinite;
+    }
+    
+    .hero-image-container {
+        animation: slideInFromRight 1s ease-out forwards, float 6s ease-in-out infinite 1s;
+    }
+    
+    .hero-card {
+        animation: cardGlow 3s ease-out infinite 1.5s;
+    }
+    
+    /* Scroll-triggered animations */
+    .animate-on-scroll {
+        opacity: 0;
+        transition: all 0.6s ease-out;
+    }
+    
+    .animate-on-scroll.animated {
+        opacity: 1;
+        transform: translateY(0) !important;
+    }
+    
+    /* Financial element animations */
+    @keyframes currencyFlow {
+        0% { transform: translateX(-100%) rotate(0deg); }
+        100% { transform: translateX(100%) rotate(360deg); }
+    }
+    
+    .financial-particle {
+        position: absolute;
+        opacity: 0.1;
+        animation: currencyFlow linear infinite;
+    }
     </style>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -206,46 +261,55 @@
     
   </nav>
   
-    <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6 animate-fade-in">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                    Technology powering <span class="gradient-text">financial infrastructure</span>
-                </h1>
-                <p class="text-lg text-gray-600 dark:text-gray-400 animate-fade-in animate-delay-100">
-                    Solv provides the financial technology infrastructure that enables businesses, banks, and fintechs to build, scale, and automate their financial operations.
-                </p>
-                <div class="flex flex-wrap gap-4 animate-fade-in animate-delay-200">
-                    <a href="#contact" class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition duration-300 transform hover:-translate-y-1">
-                        Get Started
-                    </a>
-                    <a href="#services" class="px-6 py-3 border border-gray-300 dark:border-gray-600 hover:border-primary-500 dark:hover:border-primary-400 text-gray-700 dark:text-gray-300 font-medium rounded-lg transition duration-300 transform hover:-translate-y-1">
-                        Learn More
-                    </a>
-                </div>
+<!-- Update your hero section -->
+<section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+    <!-- Financial particles background -->
+    <div class="absolute inset-0 overflow-hidden z-0">
+        <i class="financial-particle fas fa-dollar-sign text-primary-400" style="top: 20%; left: 10%; animation-duration: 20s;"></i>
+        <i class="financial-particle fas fa-euro-sign text-accent-500" style="top: 30%; left: 30%; animation-duration: 25s; animation-delay: 2s;"></i>
+        <i class="financial-particle fas fa-pound-sign text-primary-500" style="top: 50%; left: 50%; animation-duration: 30s; animation-delay: 1s;"></i>
+        <i class="financial-particle fas fa-yen-sign text-accent-400" style="top: 70%; left: 70%; animation-duration: 22s; animation-delay: 3s;"></i>
+        <i class="financial-particle fas fa-bitcoin text-primary-600" style="top: 40%; left: 80%; animation-duration: 28s; animation-delay: 4s;"></i>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+        <div class="space-y-6 animate-fade-in">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                Technology powering <span class="hero-gradient-text">financial infrastructure</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 animate-fade-in animate-delay-100">
+                Solv provides the financial technology infrastructure that enables businesses, banks, and fintechs to build, scale, and automate their financial operations.
+            </p>
+            <div class="flex flex-wrap gap-4 animate-fade-in animate-delay-200">
+                <a href="#contact" class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    Get Started
+                </a>
+                <a href="#services" class="px-6 py-3 border border-gray-300 dark:border-gray-600 hover:border-primary-500 dark:hover:border-primary-400 text-gray-700 dark:text-gray-300 font-medium rounded-lg transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    Learn More
+                </a>
             </div>
-            <div class="relative animate-float">
-                <div class="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-500 rounded-2xl opacity-20 blur-3xl"></div>
-                <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden p-8">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-32 flex items-center justify-center">
-                            <i class="fas fa-globe text-3xl text-primary-600 dark:text-primary-400"></i>
-                        </div>
-                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-32 flex items-center justify-center">
-                            <i class="fas fa-exchange-alt text-3xl text-primary-600 dark:text-primary-400"></i>
-                        </div>
-                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-32 flex items-center justify-center">
-                            <i class="fas fa-shield-alt text-3xl text-primary-600 dark:text-primary-400"></i>
-                        </div>
-                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-32 flex items-center justify-center">
-                            <i class="fas fa-robot text-3xl text-primary-600 dark:text-primary-400"></i>
-                        </div>
+        </div>
+        <div class="relative hero-image-container">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-500 rounded-2xl opacity-20 blur-3xl animate-pulse"></div>
+            <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden p-8 hero-card">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-32 flex items-center justify-center transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-globe text-3xl text-primary-600 dark:text-primary-400"></i>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-32 flex items-center justify-center transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-exchange-alt text-3xl text-primary-600 dark:text-primary-400"></i>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-32 flex items-center justify-center transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-shield-alt text-3xl text-primary-600 dark:text-primary-400"></i>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-32 flex items-center justify-center transition-transform duration-300 hover:scale-105">
+                        <i class="fas fa-robot text-3xl text-primary-600 dark:text-primary-400"></i>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Services Section -->
     <section id="services" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-50 dark:bg-gray-800/50 rounded-3xl">
@@ -257,11 +321,11 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Service Card 1 -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 card-hover animate-slide-up">
+            <!-- Update each service card with these classes -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 card-hover service-card animate-on-scroll transform translate-y-10">
                 <div class="p-6">
                     <div class="flex items-center mb-4">
-                        <div class="bg-primary-100 dark:bg-primary-900/30 p-3 rounded-lg mr-4">
+                        <div class="bg-primary-100 dark:bg-primary-900/30 p-3 rounded-lg mr-4 transition-all duration-300 group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50">
                             <i class="fas fa-globe text-primary-600 dark:text-primary-400 text-xl"></i>
                         </div>
                         <h3 class="text-xl font-semibold">Global Payments</h3>
@@ -410,8 +474,27 @@
                 <section class="py-16 bg-gradient-to-r from-primary-500 to-accent-600 text-white">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                            <div>
-                                <p class="text-4xl font-bold mb-2">200+</p>
+                            <div x-data="{ count: 0, target: 200 }" x-init="
+                                const observer = new IntersectionObserver((entries) => {
+                                    entries.forEach(entry => {
+                                        if (entry.isIntersecting) {
+                                            const duration = 2000;
+                                            const start = 0;
+                                            const increment = Math.ceil(target / (duration / 16));
+                                            const timer = setInterval(() => {
+                                                count += increment;
+                                                if (count >= target) {
+                                                    count = target;
+                                                    clearInterval(timer);
+                                                }
+                                            }, 16);
+                                            observer.unobserve(entry.target);
+                                        }
+                                    });
+                                });
+                                observer.observe($el);
+                            ">
+                                <p class="text-4xl font-bold mb-2" x-text="count.toLocaleString()">0</p>
                                 <p class="text-sm opacity-90">Enterprise Clients</p>
                             </div>
                             <div>
@@ -618,6 +701,72 @@
                       }
                     }
                   </script>
+
+<script>
+    // Scroll animations
+    document.addEventListener('DOMContentLoaded', function() {
+        // Observe sections for scroll animations
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        });
+        
+        animateElements.forEach(el => observer.observe(el));
+        
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+            const heroSection = document.getElementById('home');
+            if (heroSection) {
+                const heroHeight = heroSection.offsetHeight;
+                if (scrollPosition < heroHeight) {
+                    const parallaxValue = scrollPosition * 0.3;
+                    const financialParticles = document.querySelectorAll('.financial-particle');
+                    financialParticles.forEach((particle, index) => {
+                        particle.style.transform = `translateY(${parallaxValue * (0.5 + index * 0.1)}px)`;
+                    });
+                }
+            }
+        });
+    });
+    
+    // Add this to your existing app() function
+    function app() {
+        return {
+            menuOpen: false,
+            isDark: false,
+            
+            init() {
+                // Initialisation du thème au chargement
+                this.isDark = localStorage.getItem('color-theme') === 'dark' 
+                    || (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                
+                this.applyTheme();
+                
+                // Initialize service cards animation
+                this.animateServiceCards();
+            },
+            
+            animateServiceCards() {
+                const cards = document.querySelectorAll('.service-card');
+                cards.forEach((card, index) => {
+                    card.style.transitionDelay = `${index * 0.1}s`;
+                    card.classList.add('animate-on-scroll');
+                });
+            },
+            
+            // ... rest of your existing app() code
+        }
+    }
+</script>
                                     
             </body>
             </html>
